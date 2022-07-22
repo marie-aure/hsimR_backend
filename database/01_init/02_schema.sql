@@ -8,3 +8,10 @@ CREATE TABLE IF NOT EXISTS public.hello
     message varchar(50),
     PRIMARY KEY (id)
 );
+
+create table franchise (
+	id bigserial,
+	nom varchar(50),
+	password varchar(255),
+	PRIMARY KEY (id)
+);

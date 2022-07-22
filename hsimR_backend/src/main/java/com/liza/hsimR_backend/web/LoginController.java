@@ -1,8 +1,5 @@
 package com.liza.hsimR_backend.web;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,9 +27,9 @@ public class LoginController {
 
 		try {
 			loginService.creerFranchise(login);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-					"Erreur technique lors de la création de la franchise");
+		} catch (IllegalArgumentException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					e.getMessage());
 		}
 
 	}

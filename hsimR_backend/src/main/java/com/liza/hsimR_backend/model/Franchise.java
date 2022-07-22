@@ -20,7 +20,6 @@ public class Franchise extends BaseEntity {
 
 	private String nom;
 	private String password;
-	private String salt;
 
 //	private float argent;
 //	private int tokenCheval;
