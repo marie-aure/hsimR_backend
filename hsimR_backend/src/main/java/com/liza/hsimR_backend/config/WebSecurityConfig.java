@@ -22,8 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/login/**").permitAll()
 			.anyRequest().authenticated()
 				.and().httpBasic()
-			.and().csrf().disable()
-			.cors().disable();
+				.and().csrf().disable();
+
+		http.cors();
 	}
 
 	@Bean

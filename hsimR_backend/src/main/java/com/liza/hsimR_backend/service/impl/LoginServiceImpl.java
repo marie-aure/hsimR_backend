@@ -28,6 +28,20 @@ public class LoginServiceImpl implements LoginService {
 		Franchise franchise;
 		franchise = new Franchise(login.getNom(), passwordEncoder.encode(login.getPassword()));
 		franchiseRepository.save(franchise);
+
+	}
+
+	@Override
+	public Franchise login(String nom, String password) throws IllegalArgumentException {
+		Franchise franchise = franchiseRepository.findByNom(nom)
+				.orElseThrow(() -> new IllegalArgumentException("Authentication incorrect"));
+
+		if (passwordEncoder.matches(password, franchise.getPassword())) {
+			return franchise;
+		} else {
+			throw new IllegalArgumentException("Authentication incorrect");
+		}
+
 	}
 
 }
