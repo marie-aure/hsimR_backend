@@ -10,5 +10,6 @@ import lombok.Setter;
 public class FranchiseDto {
 
 	private String nom;
+	private String role;
 
 }

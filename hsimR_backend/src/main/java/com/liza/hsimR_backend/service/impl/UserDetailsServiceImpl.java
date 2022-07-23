@@ -23,7 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		Franchise franchise = franchiseRepository.findByNom(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Username not found : ".concat(username)));
 
-		return new User(franchise.getNom(), franchise.getPassword(), Arrays.asList(new SimpleGrantedAuthority("user")));
+		return new User(franchise.getNom(), franchise.getPassword(),
+				Arrays.asList(
+						new SimpleGrantedAuthority(franchise.getRole() != null ? franchise.getRole() : "ROLE_USER")));
 	}
 
 }
