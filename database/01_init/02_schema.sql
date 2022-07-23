@@ -13,5 +13,6 @@ create table franchise (
 	id bigserial,
 	nom varchar(50),
 	password varchar(255),
+	role varchar(10),
 	PRIMARY KEY (id)
 );
