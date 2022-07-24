@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
 import com.liza.hsimR_backend.service.TourService;
 
@@ -28,11 +29,23 @@ public class TourController {
 
 	@GetMapping("/actif")
 	@ResponseBody
-	public TourDto tourArcitf() {
+	public TourDto tourActif() {
 
 		try {
 			TourDto tourActif = tourService.getTourActif();
 			return tourActif;
+		} catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+
+	}
+
+	@GetMapping("/infoPassage")
+	@ResponseBody
+	public InfoPassageDto infoPassage() {
+
+		try {
+			return tourService.infoPassage();
 		} catch (EntityNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}

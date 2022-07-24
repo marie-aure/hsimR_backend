@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
 import com.liza.hsimR_backend.model.Tour;
 import com.liza.hsimR_backend.repository.TourRepository;
@@ -36,6 +37,18 @@ public class TourServiceImpl implements TourService {
 				StringUtils.capitalize(tour.getMois().getDisplayName(TextStyle.FULL, Locale.FRANCE)),
 				tour.getMois().getValue(), tour.getSemaineMois(),
 				tour.getCle());
+	}
+
+	public InfoPassageDto infoPassage() throws EntityNotFoundException {
+
+		Tour tourActif = tourRepository.findByActif(true)
+				.orElseThrow(() -> new EntityNotFoundException("Aucun tour actif"));
+		Tour tourSuivant = tourRepository.findByCle(tourActif.getCle() + 1)
+				.orElseThrow(() -> new EntityNotFoundException("Aucun tour suivant"));
+
+		return new InfoPassageDto(tourActif.getAnnee() == tourSuivant.getAnnee(),
+				tourActif.getMois() == tourSuivant.getMois(), convertToDto(tourSuivant));
+		 
 	}
 
 }
