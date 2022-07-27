@@ -14,4 +14,6 @@ public interface TourService {
 
 	InfoPassageDto infoPassage() throws EntityNotFoundException;
 
+	void finTour() throws EntityNotFoundException;
+
 }

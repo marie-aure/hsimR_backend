@@ -1,6 +1,7 @@
 package com.liza.hsimR_backend.service.impl;
 
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.persistence.EntityNotFoundException;
@@ -46,9 +47,43 @@ public class TourServiceImpl implements TourService {
 		Tour tourSuivant = tourRepository.findByCle(tourActif.getCle() + 1)
 				.orElseThrow(() -> new EntityNotFoundException("Aucun tour suivant"));
 
-		return new InfoPassageDto(tourActif.getAnnee() == tourSuivant.getAnnee(),
-				tourActif.getMois() == tourSuivant.getMois(), convertToDto(tourSuivant));
+		return new InfoPassageDto(tourActif.getAnnee() != tourSuivant.getAnnee(),
+				tourActif.getMois() != tourSuivant.getMois(), convertToDto(tourSuivant));
 		 
+	}
+
+	@Override
+	public void finTour() throws EntityNotFoundException {
+		// vérification et actions
+		// rien pour l'instant
+
+		Tour tourActif = tourRepository.findByActif(true)
+				.orElseThrow(() -> new EntityNotFoundException("Aucun tour actif"));
+		Tour tourSuivant = tourRepository.findByCle(tourActif.getCle() + 1)
+				.orElseThrow(() -> new EntityNotFoundException("Aucun tour suivant"));
+
+		if (tourActif.getAnnee() != tourSuivant.getAnnee()) {
+			System.out.println("Changement d'année");
+			// Rien pour l'instant
+		}
+		if (tourActif.getMois() != tourSuivant.getMois()) {
+			System.out.println("Changement de mois");
+			// Rien pour l'instant
+		}
+
+		// passage au tour suivant
+		tourSuivant.setActif(true);
+		tourActif.setActif(false);
+
+		tourRepository.saveAll(Arrays.asList(tourActif, tourSuivant));
+
+		// générer les tours suivants :
+		// calcul de la clé = = année*48+(mois-1)*4+semaine
+		// calcul de la date depuis la clé :
+		// année = ROUNDDOWN(année/48;0)
+		// mois = ROUNDDOWN((clé-année*48)/4;0)+1
+		// semaine = clé-année*48-(mois-1)*4
+
 	}
 
 }
