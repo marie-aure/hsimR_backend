@@ -10,4 +10,6 @@ public interface TourRepository extends CrudRepository<Tour, Long> {
 
 	Optional<Tour> findByActif(boolean actif);
 
+	Optional<Tour> findByCle(int cle);
+
 }
