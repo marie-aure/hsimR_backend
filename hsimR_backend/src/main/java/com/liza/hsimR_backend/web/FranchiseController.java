@@ -20,8 +20,8 @@ import com.liza.hsimR_backend.service.LoginService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/login")
-public class LoginController {
+@RequestMapping("/api/franchise")
+public class FranchiseController {
 
 	@Autowired
 	private LoginService loginService;

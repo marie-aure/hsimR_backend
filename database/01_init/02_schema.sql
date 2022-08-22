@@ -2,19 +2,13 @@
 -- Create schema
 ----------------------------
 
-create table hello
-(
-    id bigserial,
-    message varchar(50),
-    PRIMARY KEY (id)
-);
-
 create table franchise 
 (
 	id bigserial,
 	nom varchar(50),
 	password varchar(255),
 	role varchar(10),
+	argent float,
 	PRIMARY KEY (id)
 );
 

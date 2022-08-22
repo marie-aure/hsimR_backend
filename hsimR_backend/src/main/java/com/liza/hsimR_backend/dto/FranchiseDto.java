@@ -11,5 +11,6 @@ public class FranchiseDto {
 
 	private String nom;
 	private String role;
-
+	private Float argent;
+	
 }
