@@ -1,11 +1,15 @@
 package com.liza.hsimR_backend.web;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.Base64;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +20,19 @@ import org.springframework.web.server.ResponseStatusException;
 import com.liza.hsimR_backend.dto.AuthentificationDto;
 import com.liza.hsimR_backend.dto.FranchiseDto;
 import com.liza.hsimR_backend.model.Franchise;
+import com.liza.hsimR_backend.service.FranchiseService;
 import com.liza.hsimR_backend.service.LoginService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/login")
-public class LoginController {
+@RequestMapping("/api/franchise")
+public class FranchiseController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private FranchiseService franchiseService;
 
 	@PostMapping("/creer")
 	@ResponseBody
@@ -55,6 +63,18 @@ public class LoginController {
 			return new FranchiseDto(franchise.getNom(), franchise.getRole(), franchise.getArgent());
 
 		} catch (IllegalArgumentException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
+
+	}
+
+	@GetMapping("/getInfo")
+	@ResponseBody
+	public FranchiseDto getFranchiseInfo(Principal principal) {
+
+		try {
+			return franchiseService.getUserFranchise(principal.getName());
+		} catch (EntityNotFoundException | NullPointerException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}
 

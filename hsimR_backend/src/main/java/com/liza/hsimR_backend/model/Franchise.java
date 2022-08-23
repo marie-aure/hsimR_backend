@@ -21,8 +21,8 @@ public class Franchise extends BaseEntity {
 	private String nom;
 	private String password;
 	private String role;
-
-//	private float argent;
+	private float argent;
+	
 //	private int tokenCheval;
 //	private int tokenEtablissement;
 	
