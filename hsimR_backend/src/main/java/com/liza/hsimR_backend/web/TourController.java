@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
 import com.liza.hsimR_backend.service.TourService;
@@ -25,9 +24,6 @@ public class TourController {
 
 	@Autowired
 	private TourService tourService;
-
-	@Autowired
-	private ObjectMapper mapper;
 
 	@GetMapping("/actif")
 	@ResponseBody
