@@ -1,5 +1,7 @@
 package com.liza.hsimR_backend.service;
 
+import java.security.Principal;
+
 import javax.persistence.EntityNotFoundException;
 
 import com.liza.hsimR_backend.dto.InfoPassageDto;
@@ -14,6 +16,6 @@ public interface TourService {
 
 	InfoPassageDto infoPassage() throws EntityNotFoundException;
 
-	void finTour() throws EntityNotFoundException;
+	void finTour(Principal principal) throws EntityNotFoundException;
 
 }

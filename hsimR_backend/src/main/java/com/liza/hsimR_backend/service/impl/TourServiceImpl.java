@@ -1,5 +1,6 @@
 package com.liza.hsimR_backend.service.impl;
 
+import java.security.Principal;
 import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Locale;
@@ -13,8 +14,10 @@ import org.springframework.util.StringUtils;
 import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
 import com.liza.hsimR_backend.model.Tour;
+import com.liza.hsimR_backend.model.TraceType;
 import com.liza.hsimR_backend.repository.TourRepository;
 import com.liza.hsimR_backend.service.TourService;
+import com.liza.hsimR_backend.service.TraceService;
 
 
 @Service
@@ -22,6 +25,9 @@ public class TourServiceImpl implements TourService {
 
 	@Autowired
 	private TourRepository tourRepository;
+
+	@Autowired
+	private TraceService traceService;
 
 	@Override
 	public TourDto getTourActif() throws EntityNotFoundException {
@@ -53,7 +59,7 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public void finTour() throws EntityNotFoundException {
+	public void finTour(Principal principal) throws EntityNotFoundException {
 		// vérification et actions
 		// rien pour l'instant
 
@@ -76,6 +82,9 @@ public class TourServiceImpl implements TourService {
 		tourActif.setActif(false);
 
 		tourRepository.saveAll(Arrays.asList(tourActif, tourSuivant));
+
+		traceService.tracer(TraceType.FIN_TOUR, principal,
+				new StringBuilder("Le tour ").append(tourActif.getCle()).append(" a été clôturé").toString());
 
 		// générer les tours suivants :
 		// calcul de la clé = = année*48+(mois-1)*4+semaine

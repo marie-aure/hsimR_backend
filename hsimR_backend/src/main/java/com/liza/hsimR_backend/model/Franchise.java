@@ -1,6 +1,9 @@
 package com.liza.hsimR_backend.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,7 +29,10 @@ public class Franchise extends BaseEntity {
 //	private int tokenCheval;
 //	private int tokenEtablissement;
 	
-//	//Liaison distante
+	// Liaison distante
+	@OneToMany(mappedBy = "franchise")
+	private List<Trace> lLogs;
+
 //	@OneToMany(mappedBy="franchise")
 //	private List<Etablissement> lEtablissements;
 //	

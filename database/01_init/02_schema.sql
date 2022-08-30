@@ -23,3 +23,13 @@ create table tour
 	PRIMARY KEY (id)
 );
 
+create table trace
+(
+	id bigserial,
+	type smallint,
+	description varchar(300),
+    date timestamp with time zone,
+	franchise_id integer,
+	PRIMARY KEY (id)
+);
+
