@@ -39,4 +39,17 @@ public class Franchise extends BaseEntity {
 //	@OneToMany(mappedBy="franchise")
 //	private List<Concours> lConcours;
 
+	@OneToMany(mappedBy = "sourceF")
+	private List<Transaction> depenses;
+
+	@OneToMany(mappedBy = "destinataireF")
+	private List<Transaction> gains;
+
+	public Franchise(String nom, String password, String role, float argent) {
+		this.nom = nom;
+		this.password = password;
+		this.role = role;
+		this.argent = argent;
+	}
+
 }

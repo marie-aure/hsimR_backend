@@ -52,7 +52,7 @@ public class LoginController {
 
 			Franchise franchise = loginService.login(split[0], split[1]);
 
-			return new FranchiseDto(franchise.getNom(), franchise.getRole(), franchise.getArgent());
+			return new FranchiseDto(franchise.getId(), franchise.getNom(), franchise.getRole(), franchise.getArgent());
 
 		} catch (IllegalArgumentException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());

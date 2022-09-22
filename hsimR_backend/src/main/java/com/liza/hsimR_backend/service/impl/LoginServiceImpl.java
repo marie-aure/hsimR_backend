@@ -31,8 +31,7 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 		Franchise franchise;
-		franchise = new Franchise(login.getNom(), passwordEncoder.encode(login.getPassword()), "ROLE_USER", 10000,
-				null);
+		franchise = new Franchise(login.getNom(), passwordEncoder.encode(login.getPassword()), "ROLE_USER", 10000);
 		
 		franchiseRepository.save(franchise);
 		

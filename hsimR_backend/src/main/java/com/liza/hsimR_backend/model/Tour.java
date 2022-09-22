@@ -30,7 +30,6 @@ public class Tour extends BaseEntity {
 	@Override
 	public String toString(){
 		return "\n Année "+ (annee+1) + ", mois "+ mois + ", semaine " + (semaineMois+1) + ", clé " + cle + (actif?", actif":"");
-
 	}
 	
 }
