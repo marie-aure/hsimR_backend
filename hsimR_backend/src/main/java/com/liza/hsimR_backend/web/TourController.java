@@ -1,5 +1,7 @@
 package com.liza.hsimR_backend.web;
 
+import java.security.Principal;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +55,9 @@ public class TourController {
 	@PostMapping("/finTour")
 	@ResponseBody
 	@Secured("ROLE_ADMIN")
-	public void finTour() {
+	public void finTour(Principal principal) {
 		try {
-			tourService.finTour();
+			tourService.finTour(principal);
 		} catch (EntityNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		}

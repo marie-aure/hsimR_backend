@@ -6,14 +6,19 @@ import org.springframework.stereotype.Service;
 
 import com.liza.hsimR_backend.dto.AuthentificationDto;
 import com.liza.hsimR_backend.model.Franchise;
+import com.liza.hsimR_backend.model.TraceType;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.service.LoginService;
+import com.liza.hsimR_backend.service.TraceService;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private FranchiseRepository franchiseRepository;
+
+	@Autowired
+	private TraceService traceService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -26,9 +31,13 @@ public class LoginServiceImpl implements LoginService {
 		}
 
 		Franchise franchise;
-		franchise = new Franchise(login.getNom(), passwordEncoder.encode(login.getPassword()), "ROLE_USER", 10000);
+		franchise = new Franchise(login.getNom(), passwordEncoder.encode(login.getPassword()), "ROLE_USER", 10000,
+				null);
+		
 		franchiseRepository.save(franchise);
-
+		
+		traceService.tracer(TraceType.CREATION_FRANCHISE, franchise,
+				new StringBuilder("Creation de la franchise ").append(login.getNom()).toString());
 	}
 
 	@Override
