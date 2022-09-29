@@ -33,7 +33,7 @@ public class Transaction extends BaseEntity {
 	// private srcetab
 
 	@ManyToOne
-	@JoinColumn(name = "destinataire_f_id", nullable = false)
+	@JoinColumn(name = "destinataire_f_id")
 	private Franchise destinataireF;
 	// private destetab
 	
