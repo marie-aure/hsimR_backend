@@ -33,3 +33,13 @@ create table trace
 	PRIMARY KEY (id)
 );
 
+create table transaction
+(
+	id bigserial,
+	montant float,
+	libelle varchar(300),
+    tour_id integer,
+	source_f_id integer,
+	destinataire_f_id integer,
+	PRIMARY KEY (id)
+);

@@ -9,11 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FranchiseDto {
+public class TransactionDto {
 
-	private Long id;
-	private String nom;
-	private String role;
-	private Float argent;
+	private Float montant;
+	private String libelle;
+	private FranchiseDto sourceF;
+	private FranchiseDto destinataireF;
+	private TourDto tour;
 	
 }
