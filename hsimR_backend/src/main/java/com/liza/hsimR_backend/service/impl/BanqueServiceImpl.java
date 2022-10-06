@@ -1,10 +1,15 @@
 package com.liza.hsimR_backend.service.impl;
 
+import java.lang.reflect.Type;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -109,6 +114,29 @@ public class BanqueServiceImpl implements BanqueService {
 
 
 		return mapper.map(transaction, TransactionDto.class);
+	}
+
+	@Override
+	public List<TransactionDto> historiqueTransaction(Principal principal, String type) {
+		Franchise franchise = franchiseRepository.findByNom(principal.getName()).orElseThrow(
+				() -> new EntityNotFoundException("la franchise connectée n'a pas été trouvée en base de données"));
+
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		
+		if(type.equals("depense")) {
+			transactions = transactionRepository.findAllBySourceF(franchise);
+		}
+		if (type.equals("gain")) {
+			transactions = transactionRepository.findAllByDestinataireF(franchise);
+		}
+
+		// Mapping to DTO
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+		Type listType = new TypeToken<List<TransactionDto>>() {
+		}.getType();
+
+		return mapper.map(transactions, listType);
 	}
 
 }
