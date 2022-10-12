@@ -3,6 +3,7 @@ package com.liza.hsimR_backend.web;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +26,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private ModelMapper mapper;
 
 	@PostMapping("/creer")
 	@ResponseBody
@@ -51,8 +55,7 @@ public class LoginController {
 			}
 
 			Franchise franchise = loginService.login(split[0], split[1]);
-
-			return new FranchiseDto(franchise.getId(), franchise.getNom(), franchise.getRole(), franchise.getArgent());
+			return mapper.map(franchise, FranchiseDto.class);
 
 		} catch (IllegalArgumentException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
