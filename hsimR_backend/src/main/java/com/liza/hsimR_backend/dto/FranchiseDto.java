@@ -15,5 +15,7 @@ public class FranchiseDto {
 	private String nom;
 	private String role;
 	private Float argent;
+	private int tokenCheval;
+	private int tokenEtablissement;
 	
 }
