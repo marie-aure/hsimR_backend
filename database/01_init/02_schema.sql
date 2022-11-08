@@ -9,6 +9,8 @@ create table franchise
 	password varchar(255),
 	role varchar(10),
 	argent float,
+	token_cheval smallint default 0,
+	token_etablissement smallint default 0,
 	PRIMARY KEY (id)
 );
 
