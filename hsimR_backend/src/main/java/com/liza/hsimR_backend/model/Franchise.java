@@ -31,11 +31,11 @@ public class Franchise extends BaseEntity {
 	
 	// Liaison distante
 	@OneToMany(mappedBy = "franchise")
-	private List<Trace> lLogs;
+	private List<Trace> logs;
 
-//	@OneToMany(mappedBy="franchise")
-//	private List<Etablissement> lEtablissements;
-//	
+	@OneToMany(mappedBy = "franchise")
+	private List<Etablissement> lEtablissements;
+
 //	@OneToMany(mappedBy="franchise")
 //	private List<Concours> lConcours;
 

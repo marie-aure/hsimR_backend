@@ -13,4 +13,6 @@ public interface FranchiseRepository extends CrudRepository<Franchise, Long> {
 
 	List<Franchise> findAllByNomNot(String nom);
 
+	List<Franchise> findAll();
+
 }
