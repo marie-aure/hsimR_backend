@@ -14,6 +14,15 @@ create table franchise
 	PRIMARY KEY (id)
 );
 
+create table etablissement
+(
+	id bigserial,
+	nom varchar(50),
+	type smallint,
+	franchise_id smallint,
+	PRIMARY KEY (id)
+);
+
 create table tour
 (
 	id bigserial,
@@ -32,6 +41,7 @@ create table trace
 	description varchar(300),
     date timestamp with time zone,
 	franchise_id integer,
+	etablissement_id integer,
 	PRIMARY KEY (id)
 );
 
@@ -45,3 +55,9 @@ create table transaction
 	destinataire_f_id integer,
 	PRIMARY KEY (id)
 );
+
+alter table etablissement add constraint fk_etablissement_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
+alter table trace add constraint fk_trace_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
+alter table trace add constraint fk_trace_etablissement_id foreign key (etablissement_id) REFERENCES etablissement(id);
+alter table transaction add constraint fk_transaction_source_f_id foreign key (source_f_id) REFERENCES franchise(id);
+alter table transaction add constraint fk_transaction_destinataire_f_id foreign key (destinataire_f_id) REFERENCES franchise(id);

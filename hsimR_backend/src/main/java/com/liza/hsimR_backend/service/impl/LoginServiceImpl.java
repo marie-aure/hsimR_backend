@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		franchiseRepository.save(franchise);
 		
-		traceService.tracer(TraceType.CREATION_FRANCHISE, franchise,
+		traceService.tracer(TraceType.CREATION_FRANCHISE, franchise, null,
 				new StringBuilder("Creation de la franchise ").append(login.getNom()).toString());
 	}
 

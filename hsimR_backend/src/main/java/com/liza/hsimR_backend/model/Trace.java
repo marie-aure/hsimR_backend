@@ -22,11 +22,13 @@ import lombok.Setter;
 public class Trace extends BaseEntity {
 
 	private TraceType type;
-//	private Etablissement etablissement;
+
 	private String description;
 	private Date date;
 	
 	@ManyToOne
 	private Franchise franchise;
 
+	@ManyToOne
+	private Etablissement etablissement;
 }
