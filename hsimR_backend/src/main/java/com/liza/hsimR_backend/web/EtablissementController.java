@@ -54,4 +54,15 @@ public class EtablissementController {
 
 	}
 
+	@GetMapping("/liste")
+	@ResponseBody
+	public List<EtablissementDto> getListeEtablissement(Principal principal) {
+
+		try {
+			return etablissementService.getListeEtablissement(principal);
+		} catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		}
+	}
+
 }

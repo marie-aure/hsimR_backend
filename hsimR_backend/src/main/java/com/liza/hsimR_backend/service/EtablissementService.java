@@ -16,4 +16,6 @@ public interface EtablissementService {
 	void creerEtablissement(EtablissementDto etablissementDto, boolean token, Principal principal)
 			throws EntityNotFoundException, IllegalArgumentException, InsufficientResourceException;
 
+	List<EtablissementDto> getListeEtablissement(Principal principal) throws EntityNotFoundException;
+
 }
