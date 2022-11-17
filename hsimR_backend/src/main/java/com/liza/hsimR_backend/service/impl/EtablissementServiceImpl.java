@@ -18,10 +18,12 @@ import com.liza.hsimR_backend.dto.TypeEtablissementDto;
 import com.liza.hsimR_backend.model.Etablissement;
 import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.exception.InsufficientResourceException;
+import com.liza.hsimR_backend.modelEnum.TraceType;
 import com.liza.hsimR_backend.modelEnum.TypeEtablissement;
 import com.liza.hsimR_backend.repository.EtablissementRepository;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.service.EtablissementService;
+import com.liza.hsimR_backend.service.TraceService;
 
 @Service
 public class EtablissementServiceImpl implements EtablissementService {
@@ -34,6 +36,9 @@ public class EtablissementServiceImpl implements EtablissementService {
 
 	@Autowired
 	private FranchiseRepository franchiseRepository;
+
+	@Autowired
+	private TraceService traceService;
 
 	@Override
 	public List<TypeEtablissementDto> getTypes() {
@@ -61,19 +66,23 @@ public class EtablissementServiceImpl implements EtablissementService {
 
 			if (token) {
 				if (franchise.getTokenEtablissement() > 0) {
-					etablissementRepository.save(etablissement);
 					franchise.setTokenEtablissement(franchise.getTokenEtablissement() - 1);
 				} else {
 					throw new InsufficientResourceException("Pas de token établissement disponible");
 				}
 			} else {
 				if (franchise.getArgent() >= 100000) {
-					etablissementRepository.save(etablissement);
 					franchise.setArgent(franchise.getArgent() - 100000);
 				} else {
 					throw new InsufficientResourceException("Pas assez d'argent pour créer l'établissement");
 				}
 			}
+			etablissementRepository.save(etablissement);
+			franchiseRepository.save(franchise);
+			traceService.tracer(TraceType.CREATION_ETABLISSEMENT, franchise, etablissement,
+					new StringBuilder("L'établissement ").append(etablissement.getNom())
+							.append(token ? " a été créé contre 1 token établissement" : " a été créé contre 100 000$")
+							.toString());
 
 		} catch (IllegalArgumentException e) {
 			System.out.println("Error lors de la creation de l'établissement");

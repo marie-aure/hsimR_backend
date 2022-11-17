@@ -17,7 +17,7 @@ import com.liza.hsimR_backend.dto.TraceDto;
 import com.liza.hsimR_backend.model.Etablissement;
 import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.Trace;
-import com.liza.hsimR_backend.model.TraceType;
+import com.liza.hsimR_backend.modelEnum.TraceType;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.repository.TraceRepository;
 import com.liza.hsimR_backend.service.TraceService;
