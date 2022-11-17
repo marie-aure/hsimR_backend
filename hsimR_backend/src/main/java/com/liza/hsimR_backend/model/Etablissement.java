@@ -34,4 +34,11 @@ public class Etablissement extends BaseEntity {
 	@OneToMany(mappedBy = "etablissement")
 	private List<Trace> logs;
 
+	public Etablissement(String nom, TypeEtablissement type, Franchise franchise) {
+		super();
+		this.nom = nom;
+		this.type = type;
+		this.franchise = franchise;
+	}
+
 }
