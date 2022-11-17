@@ -8,12 +8,12 @@ create table etablissement
 (
 	id bigserial,
 	nom varchar(50),
-	type smallint,
+	type varchar(50),
 	franchise_id smallint,
 	PRIMARY KEY (id)
 );
 
-alter table trace add column etablissement_id integer;
+alter table trace add column etablissement_id integer, alter column type type varchar(50);
 
 alter table etablissement add constraint fk_etablissement_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
 alter table trace add constraint fk_trace_franchise_id foreign key (franchise_id) REFERENCES franchise(id);

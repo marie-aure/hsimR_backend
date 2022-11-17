@@ -18,7 +18,7 @@ create table etablissement
 (
 	id bigserial,
 	nom varchar(50),
-	type smallint,
+	type varchar(50),
 	franchise_id smallint,
 	PRIMARY KEY (id)
 );
@@ -37,7 +37,7 @@ create table tour
 create table trace
 (
 	id bigserial,
-	type smallint,
+	type varchar(50),
 	description varchar(300),
     date timestamp with time zone,
 	franchise_id integer,

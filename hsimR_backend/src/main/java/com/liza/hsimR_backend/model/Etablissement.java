@@ -3,6 +3,8 @@ package com.liza.hsimR_backend.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -25,6 +27,7 @@ import lombok.Setter;
 public class Etablissement extends BaseEntity {
 
 	private String nom;
+	@Enumerated(EnumType.STRING)
 	private TypeEtablissement type;
 	
 	// Liaisons
@@ -33,5 +36,12 @@ public class Etablissement extends BaseEntity {
 	
 	@OneToMany(mappedBy = "etablissement")
 	private List<Trace> logs;
+
+	public Etablissement(String nom, TypeEtablissement type, Franchise franchise) {
+		super();
+		this.nom = nom;
+		this.type = type;
+		this.franchise = franchise;
+	}
 
 }

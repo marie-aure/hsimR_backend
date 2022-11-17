@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.liza.hsimR_backend.dto.TraceDto;
-import com.liza.hsimR_backend.model.TraceType;
+import com.liza.hsimR_backend.modelEnum.TraceType;
 import com.liza.hsimR_backend.service.TraceService;
 
 @CrossOrigin(origins = "http://localhost:4200")
