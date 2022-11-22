@@ -91,4 +91,20 @@ public class EtablissementServiceImpl implements EtablissementService {
 
 	}
 
+	@Override
+	public List<EtablissementDto> getListeEtablissement(Principal principal) throws EntityNotFoundException {
+		Franchise franchise = franchiseRepository.findByNom(principal.getName()).orElseThrow(
+				() -> new EntityNotFoundException("la franchise connectée n'a pas été trouvée en base de données"));
+
+		List<Etablissement> etablissements = etablissementRepository.findByFranchise(franchise);
+
+		// Mapping to DTO
+		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+		Type listType = new TypeToken<List<EtablissementDto>>() {
+		}.getType();
+
+		return mapper.map(etablissements, listType);
+	}
+
 }
