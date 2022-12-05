@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.liza.hsimR_backend.dto.EtablissementDto;
@@ -105,6 +106,19 @@ public class EtablissementServiceImpl implements EtablissementService {
 		}.getType();
 
 		return mapper.map(etablissements, listType);
+	}
+
+	@Override
+	public EtablissementDto getEtablissement(Principal principal, long id)
+			throws EntityNotFoundException, AccessDeniedException {
+		Franchise franchise = franchiseRepository.findByNom(principal.getName()).orElseThrow(() -> new EntityNotFoundException("la franchise connectée n'a pas été trouvée en base de données"));
+		
+		Etablissement etablissement = etablissementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("l'établissement demandé n'a pas été trouvé en base de données"));
+		if (!franchise.equals(etablissement.getFranchise())) {
+			throw new AccessDeniedException("la franchise connectée n'a pas accès à cet établissement");
+		} else {
+			return mapper.map(etablissement, EtablissementDto.class);
+		}
 	}
 
 }
