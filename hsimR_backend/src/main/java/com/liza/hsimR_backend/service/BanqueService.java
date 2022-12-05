@@ -6,11 +6,15 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import com.liza.hsimR_backend.dto.TransactionDto;
+import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.exception.InsufficientResourceException;
 
 public interface BanqueService {
 
 	TransactionDto creerDepense(Principal principal, TransactionDto transactionDto)
+			throws EntityNotFoundException, IllegalArgumentException, InsufficientResourceException;
+
+	void creerDepense(float montant, String libelle, Franchise source, Franchise destinataire)
 			throws EntityNotFoundException, IllegalArgumentException, InsufficientResourceException;
 
 	List<TransactionDto> historiqueTransaction(Principal principal, String type);

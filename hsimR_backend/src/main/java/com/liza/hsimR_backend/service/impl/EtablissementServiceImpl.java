@@ -23,6 +23,7 @@ import com.liza.hsimR_backend.modelEnum.TraceType;
 import com.liza.hsimR_backend.modelEnum.TypeEtablissement;
 import com.liza.hsimR_backend.repository.EtablissementRepository;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
+import com.liza.hsimR_backend.service.BanqueService;
 import com.liza.hsimR_backend.service.EtablissementService;
 import com.liza.hsimR_backend.service.TraceService;
 
@@ -40,6 +41,9 @@ public class EtablissementServiceImpl implements EtablissementService {
 
 	@Autowired
 	private TraceService traceService;
+
+	@Autowired
+	private BanqueService banqueService;
 
 	@Override
 	public List<TypeEtablissementDto> getTypes() {
@@ -74,7 +78,10 @@ public class EtablissementServiceImpl implements EtablissementService {
 			} else {
 				if (franchise.getArgent() >= 100000) {
 					franchise.setArgent(franchise.getArgent() - 100000);
-				} else {
+					String libelleTransaction = new StringBuilder("Création de l'établissement ")
+							.append(etablissement.getNom()).toString();
+					banqueService.creerDepense(100000, libelleTransaction, franchise, null);
+				}else {
 					throw new InsufficientResourceException("Pas assez d'argent pour créer l'établissement");
 				}
 			}
