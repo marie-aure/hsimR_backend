@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EtablissementDto {
 
+	private long id;
 	private String nom;
 	private TypeEtablissementDto type;
 	
