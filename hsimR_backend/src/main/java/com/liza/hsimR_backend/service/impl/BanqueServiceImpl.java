@@ -24,7 +24,6 @@ import com.liza.hsimR_backend.repository.TourRepository;
 import com.liza.hsimR_backend.repository.TransactionRepository;
 import com.liza.hsimR_backend.service.BanqueService;
 
-
 @Service
 public class BanqueServiceImpl implements BanqueService {
 
@@ -43,13 +42,13 @@ public class BanqueServiceImpl implements BanqueService {
 	@Override
 	public TransactionDto creerDepense(Principal principal, TransactionDto transactionDto)
 			throws EntityNotFoundException, IllegalArgumentException, InsufficientResourceException {
-		
-		if (!(transactionDto.getMontant()>0)) {
+
+		if (!(transactionDto.getMontant() > 0)) {
 			throw new IllegalArgumentException("Le montant doit être positif");
 		} else if (!StringUtils.hasText(transactionDto.getLibelle())) {
 			throw new IllegalArgumentException("Le libellé doit être renseigné");
 		}
-		
+
 		Franchise sourceF = franchiseRepository.findByNom(principal.getName()).orElseThrow(
 				() -> new EntityNotFoundException("la franchise connectée n'a pas été trouvée en base de données"));
 
@@ -61,7 +60,7 @@ public class BanqueServiceImpl implements BanqueService {
 		}
 
 		Transaction transaction;
-		if (transactionDto.getDestinataireF() !=null) {
+		if (transactionDto.getDestinataireF() != null) {
 			Franchise destinataireF = franchiseRepository.findById(transactionDto.getDestinataireF().getId())
 					.orElseThrow(() -> new EntityNotFoundException("Le destinataire n'a pas été trouvé en bdd : "
 							+ transactionDto.getDestinataireF().getId()));
@@ -112,8 +111,70 @@ public class BanqueServiceImpl implements BanqueService {
 			}
 		}
 
-
 		return mapper.map(transaction, TransactionDto.class);
+	}
+
+	@Override
+	public void creerDepense(float montant, String libelle, Franchise source, Franchise destinataire)
+			throws EntityNotFoundException, IllegalArgumentException, InsufficientResourceException {
+		if (!(montant > 0)) {
+			throw new IllegalArgumentException("Le montant doit être positif");
+		} else if (!StringUtils.hasText(libelle)) {
+			throw new IllegalArgumentException("Le libellé doit être renseigné");
+		}
+
+		Tour tour = tourRepository.findByActif(true)
+				.orElseThrow(() -> new EntityNotFoundException("le tour actif n'a pas été trouvé en bdd"));
+
+		if (source.getArgent() < montant) {
+			throw new InsufficientResourceException("Montant supérieur au montant maximum de la franchise");
+		}
+
+		Transaction transaction;
+		if (destinataire != null) {
+			// effectuer transaction
+			float srcArgent = source.getArgent();
+			float destArgent = destinataire.getArgent();
+			source.setArgent(source.getArgent() - montant);
+			System.out.println(srcArgent + source.getArgent());
+			destinataire.setArgent(destinataire.getArgent() + montant);
+			System.out.println(destArgent + destinataire.getArgent());
+			transaction = new Transaction(montant, libelle, tour, source, destinataire);
+			try {
+				// save
+				franchiseRepository.save(source);
+				franchiseRepository.save(destinataire);
+				transactionRepository.save(transaction);
+			} catch (Exception e) {
+				System.out.println("erreur lors de la sauvegarde de la transaction : " + transaction.getLibelle());
+				System.out.println(e);
+				// resave old
+				source.setArgent(srcArgent);
+				destinataire.setArgent(destArgent);
+				franchiseRepository.save(source);
+				franchiseRepository.save(destinataire);
+				transactionRepository.delete(transaction);
+			}
+		} else {
+			System.out.println("Aucun destinataire pour la transaction : " + libelle);
+
+			// effectuer transaction
+			float srcArgent = source.getArgent();
+			source.setArgent(source.getArgent() - montant);
+			transaction = new Transaction(montant, libelle, tour, source, null);
+			try {
+				// save
+				franchiseRepository.save(source);
+				transactionRepository.save(transaction);
+			} catch (Exception e) {
+				System.out.println("erreur lors de la sauvegarde de la transaction : " + transaction.getLibelle());
+				System.out.println(e);
+				// resave old
+				source.setArgent(srcArgent);
+				franchiseRepository.save(source);
+				transactionRepository.delete(transaction);
+			}
+		}
 	}
 
 	@Override
@@ -122,8 +183,8 @@ public class BanqueServiceImpl implements BanqueService {
 				() -> new EntityNotFoundException("la franchise connectée n'a pas été trouvée en base de données"));
 
 		List<Transaction> transactions = new ArrayList<Transaction>();
-		
-		if(type.equals("depense")) {
+
+		if (type.equals("depense")) {
 			transactions = transactionRepository.findAllBySourceF(franchise);
 		}
 		if (type.equals("gain")) {

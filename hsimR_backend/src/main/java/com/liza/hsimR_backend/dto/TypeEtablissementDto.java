@@ -9,13 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FranchiseDto {
+public class TypeEtablissementDto {
 
-	private Long id;
-	private String nom;
-	private String role;
-	private Float argent;
-	private int tokenCheval;
-	private int tokenEtablissement;
+	private String type;
+	private String libelle;
 	
 }

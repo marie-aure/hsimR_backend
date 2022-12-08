@@ -26,16 +26,16 @@ public class Franchise extends BaseEntity {
 	private String role;
 	private float argent;
 	
-//	private int tokenCheval;
-//	private int tokenEtablissement;
+	private int tokenCheval;
+	private int tokenEtablissement;
 	
 	// Liaison distante
 	@OneToMany(mappedBy = "franchise")
-	private List<Trace> lLogs;
+	private List<Trace> logs;
 
-//	@OneToMany(mappedBy="franchise")
-//	private List<Etablissement> lEtablissements;
-//	
+	@OneToMany(mappedBy = "franchise")
+	private List<Etablissement> lEtablissements;
+
 //	@OneToMany(mappedBy="franchise")
 //	private List<Concours> lConcours;
 
@@ -45,11 +45,13 @@ public class Franchise extends BaseEntity {
 	@OneToMany(mappedBy = "destinataireF")
 	private List<Transaction> gains;
 
-	public Franchise(String nom, String password, String role, float argent) {
+	public Franchise(String nom, String password, String role, float argent, int tokenCheval, int tokenEtablissement) {
 		this.nom = nom;
 		this.password = password;
 		this.role = role;
 		this.argent = argent;
+		this.tokenCheval = tokenCheval;
+		this.tokenEtablissement = tokenEtablissement;
 	}
 
 }

@@ -14,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liza.hsimR_backend.dto.TraceDto;
+import com.liza.hsimR_backend.model.Etablissement;
 import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.Trace;
-import com.liza.hsimR_backend.model.TraceType;
+import com.liza.hsimR_backend.modelEnum.TraceType;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.repository.TraceRepository;
 import com.liza.hsimR_backend.service.TraceService;
@@ -40,13 +41,13 @@ public class TraceServiceImpl implements TraceService {
 		Franchise franchise = franchiseRepository.findByNom(principal.getName())
 				.orElseThrow(() -> new EntityNotFoundException("Logged in user not found in database"));
 
-		tracer(type, franchise, description);
+		tracer(type, franchise, null, description);
 	}
 
 	@Override
-	public void tracer(TraceType type, Franchise franchise, String description) {
+	public void tracer(TraceType type, Franchise franchise, Etablissement etablissement, String description) {
 
-		Trace trace = new Trace(type, description, new Date(), franchise);
+		Trace trace = new Trace(type, description, new Date(), franchise, etablissement);
 		traceRepository.save(trace);
 
 	}

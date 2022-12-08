@@ -3,6 +3,7 @@ package com.liza.hsimR_backend.service.impl;
 import java.security.Principal;
 import java.time.format.TextStyle;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,8 +14,10 @@ import org.springframework.util.StringUtils;
 
 import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
+import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.Tour;
-import com.liza.hsimR_backend.model.TraceType;
+import com.liza.hsimR_backend.modelEnum.TraceType;
+import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.repository.TourRepository;
 import com.liza.hsimR_backend.service.TourService;
 import com.liza.hsimR_backend.service.TraceService;
@@ -28,6 +31,9 @@ public class TourServiceImpl implements TourService {
 
 	@Autowired
 	private TraceService traceService;
+
+	@Autowired
+	private FranchiseRepository franchiseRepository;
 
 	@Override
 	public TourDto getTourActif() throws EntityNotFoundException {
@@ -70,7 +76,12 @@ public class TourServiceImpl implements TourService {
 
 		if (tourActif.getAnnee() != tourSuivant.getAnnee()) {
 			System.out.println("Changement d'année");
-			// Rien pour l'instant
+			// Générer pour chaque franchise 1 token ch + 1 token cheval par établissement
+			List<Franchise> franchises = franchiseRepository.findAll();
+			franchises.stream().forEach(franchise -> {
+				franchise.setTokenCheval(franchise.getTokenCheval() + 1 + franchise.getLEtablissements().size());
+				franchiseRepository.save(franchise);
+			});
 		}
 		if (tourActif.getMois() != tourSuivant.getMois()) {
 			System.out.println("Changement de mois");
