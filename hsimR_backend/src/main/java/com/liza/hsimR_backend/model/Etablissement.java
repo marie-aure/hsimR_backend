@@ -35,6 +35,9 @@ public class Etablissement extends BaseEntity {
 	private Franchise franchise;
 	
 	@OneToMany(mappedBy = "etablissement")
+	private List<Employe> employes;
+	
+	@OneToMany(mappedBy = "etablissement")
 	private List<Trace> logs;
 
 	public Etablissement(String nom, TypeEtablissement type, Franchise franchise) {

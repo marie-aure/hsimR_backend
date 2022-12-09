@@ -56,8 +56,22 @@ create table transaction
 	PRIMARY KEY (id)
 );
 
+create table employe
+(
+	id bigserial,
+	nom vharchar(20),
+	prenom varchar(20),
+	genre varchar(8),
+	age integer,
+	role varchar(10),
+	salaire float,	
+	etablissement_id integer,
+	PRIMARY KEY (id)
+);
+
 alter table etablissement add constraint fk_etablissement_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
 alter table trace add constraint fk_trace_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
 alter table trace add constraint fk_trace_etablissement_id foreign key (etablissement_id) REFERENCES etablissement(id);
 alter table transaction add constraint fk_transaction_source_f_id foreign key (source_f_id) REFERENCES franchise(id);
 alter table transaction add constraint fk_transaction_destinataire_f_id foreign key (destinataire_f_id) REFERENCES franchise(id);
+alter table employe add constraint fk_employe_etablissement_id foreign key (etablissement_id) REFERENCES etablissement(id);
