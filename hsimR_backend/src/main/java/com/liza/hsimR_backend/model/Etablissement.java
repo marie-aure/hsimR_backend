@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.liza.hsimR_backend.modelEnum.TypeEtablissement;
+import com.liza.hsimR_backend.model.modelEnum.TypeEtablissement;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

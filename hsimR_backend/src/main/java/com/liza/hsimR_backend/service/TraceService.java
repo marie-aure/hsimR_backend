@@ -8,7 +8,7 @@ import javax.persistence.EntityNotFoundException;
 import com.liza.hsimR_backend.dto.TraceDto;
 import com.liza.hsimR_backend.model.Etablissement;
 import com.liza.hsimR_backend.model.Franchise;
-import com.liza.hsimR_backend.modelEnum.TraceType;
+import com.liza.hsimR_backend.model.modelEnum.TraceType;
 
 public interface TraceService {
 

@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.liza.hsimR_backend.modelEnum.TraceType;
+import com.liza.hsimR_backend.model.modelEnum.TraceType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

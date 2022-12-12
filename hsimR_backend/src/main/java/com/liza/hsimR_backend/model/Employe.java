@@ -7,8 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.liza.hsimR_backend.modelEnum.Genre;
-import com.liza.hsimR_backend.modelEnum.Role;
+import com.liza.hsimR_backend.model.modelEnum.Genre;
+import com.liza.hsimR_backend.model.modelEnum.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

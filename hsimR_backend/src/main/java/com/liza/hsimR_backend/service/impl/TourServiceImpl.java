@@ -16,7 +16,7 @@ import com.liza.hsimR_backend.dto.InfoPassageDto;
 import com.liza.hsimR_backend.dto.TourDto;
 import com.liza.hsimR_backend.model.Franchise;
 import com.liza.hsimR_backend.model.Tour;
-import com.liza.hsimR_backend.modelEnum.TraceType;
+import com.liza.hsimR_backend.model.modelEnum.TraceType;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.repository.TourRepository;
 import com.liza.hsimR_backend.service.TourService;
