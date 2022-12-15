@@ -1,6 +1,10 @@
 package com.liza.hsimR_backend.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,6 +28,7 @@ public class Competence extends BaseEntity {
 	private TypeCompetence type;
 	
 	// Liaisons
-	
+	@OneToMany(mappedBy = "competence", fetch = FetchType.LAZY)
+	private List<CompetenceParRole> competencesParRole;
 
 }

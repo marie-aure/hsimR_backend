@@ -47,3 +47,22 @@ INSERT INTO tour (id, actif, annee, cle, mois, semaine_mois) VALUES
 	(nextval('tour_id_seq'),'false',0,45,11,1),
 	(nextval('tour_id_seq'),'false',0,46,11,2),
 	(nextval('tour_id_seq'),'false',0,47,11,3);
+	
+INSERT INTO competence (id, libelle, type) VALUES
+	(nextVal('competence_id_seq'),'Intelligence',EMPLOYE),
+	(nextVal('competence_id_seq'),'Réactivité',EMPLOYE),
+	(nextVal('competence_id_seq'),'Equilibre',EMPLOYE),
+	(nextVal('competence_id_seq'),'Endurance',EMPLOYE),
+	(nextVal('competence_id_seq'),'Adresse',EMPLOYE),
+	(nextVal('competence_id_seq'),'Sang-froid',EMPLOYE),
+	(nextVal('competence_id_seq'),'Empathie',EMPLOYE),
+	(nextVal('competence_id_seq'),'Réflexe',EMPLOYE),
+	(nextVal('competence_id_seq'),'Force',CHEVAL),
+	(nextVal('competence_id_seq'),'Endurance',CHEVAL),
+	(nextVal('competence_id_seq'),'Vitesse',CHEVAL),
+	(nextVal('competence_id_seq'),'Agilité',CHEVAL),
+	(nextVal('competence_id_seq'),'Saut',CHEVAL),
+	(nextVal('competence_id_seq'),'Concentration',CHEVAL),
+	(nextVal('competence_id_seq'),'Caractère',CHEVAL),
+	(nextVal('competence_id_seq'),'Grâce',CHEVAL),
+	(nextVal('competence_id_seq'),'Réflexe',CHEVAL);

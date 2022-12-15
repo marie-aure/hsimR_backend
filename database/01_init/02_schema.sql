@@ -69,9 +69,29 @@ create table employe
 	PRIMARY KEY (id)
 );
 
+create table competence
+(
+	id bigserial,
+	libelle varchar(20),
+	type varchar(10),
+	PRIMARY KEY (id)
+);
+
+create table competence_par_role
+(
+	id bigserial,
+	role varchar(10),
+	niveau_moy float,
+	competence_id integer,
+	PRIMARY KEY (id)
+);
+
+alter table competence_par_role add constraint fk_competence_par_role_competence_id foreign key (competence_id) REFERENCES competence(id);
+
 alter table etablissement add constraint fk_etablissement_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
 alter table trace add constraint fk_trace_franchise_id foreign key (franchise_id) REFERENCES franchise(id);
 alter table trace add constraint fk_trace_etablissement_id foreign key (etablissement_id) REFERENCES etablissement(id);
 alter table transaction add constraint fk_transaction_source_f_id foreign key (source_f_id) REFERENCES franchise(id);
 alter table transaction add constraint fk_transaction_destinataire_f_id foreign key (destinataire_f_id) REFERENCES franchise(id);
 alter table employe add constraint fk_employe_etablissement_id foreign key (etablissement_id) REFERENCES etablissement(id);
+alter table competence_par_role add constraint fk_competence_par_role_competence_id foreign key (competence_id) REFERENCES competence(id);
