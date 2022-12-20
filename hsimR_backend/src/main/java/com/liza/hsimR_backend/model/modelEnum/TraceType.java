@@ -1,4 +1,4 @@
-package com.liza.hsimR_backend.modelEnum;
+package com.liza.hsimR_backend.model.modelEnum;
 
 public enum TraceType {
 

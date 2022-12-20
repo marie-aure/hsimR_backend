@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.liza.hsimR_backend.modelEnum.TypeEtablissement;
+import com.liza.hsimR_backend.model.modelEnum.TypeEtablissement;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +33,9 @@ public class Etablissement extends BaseEntity {
 	// Liaisons
 	@ManyToOne
 	private Franchise franchise;
+	
+	@OneToMany(mappedBy = "etablissement")
+	private List<Employe> employes;
 	
 	@OneToMany(mappedBy = "etablissement")
 	private List<Trace> logs;

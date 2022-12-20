@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.liza.hsimR_backend.dto.AuthentificationDto;
 import com.liza.hsimR_backend.model.Franchise;
-import com.liza.hsimR_backend.modelEnum.TraceType;
+import com.liza.hsimR_backend.model.modelEnum.TraceType;
 import com.liza.hsimR_backend.repository.FranchiseRepository;
 import com.liza.hsimR_backend.service.LoginService;
 import com.liza.hsimR_backend.service.TraceService;
